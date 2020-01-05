@@ -1,4 +1,4 @@
-package com.xk.freddit;
+package com.freddit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
