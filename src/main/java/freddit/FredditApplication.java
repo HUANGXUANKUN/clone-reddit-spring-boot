@@ -22,7 +22,8 @@ public class FredditApplication {
         SpringApplication.run(FredditApplication.class, args);
     }
 
-    @Bean
+    // to init data
+//    @Bean
     CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
         return args -> {
             Link link = new Link("Getting started with spring boot 2", "https://afakeurl.com/");
