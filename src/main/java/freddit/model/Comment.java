@@ -1,8 +1,6 @@
 package freddit.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,10 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @NoArgsConstructor
-@Data // includes getter/setter and withArgsConstructor
+//@Data // includes getter/setter and withArgsConstructor
+@RequiredArgsConstructor
+@Getter @Setter
+@ToString
 public class Comment extends Auditable{
 
     @Id
