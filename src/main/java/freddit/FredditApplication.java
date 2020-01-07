@@ -3,6 +3,7 @@ package freddit;
 import freddit.model.Link;
 import freddit.repository.CommentRepository;
 import freddit.repository.LinkRepository;
+import org.ocpsoft.prettytime.PrettyTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,12 +23,8 @@ public class FredditApplication {
         SpringApplication.run(FredditApplication.class, args);
     }
 
-    // to init data
-//    @Bean
-    CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
-        return args -> {
-            Link link = new Link("Getting started with spring boot 2", "https://afakeurl.com/");
-            linkRepository.save(link);
-        };
+    @Bean
+    PrettyTime prettyTime(){
+        return new PrettyTime();
     }
 }
