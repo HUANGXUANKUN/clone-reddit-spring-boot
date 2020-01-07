@@ -31,7 +31,7 @@ public class Link extends Auditable {
     private String title;
 
     @NonNull
-    @NotEmpty(message = "Please enter a url.")
+    @NotEmpty(message = "Please enter an url.")
     @URL(message = "Please enter a valid url.")
     private String url;
 

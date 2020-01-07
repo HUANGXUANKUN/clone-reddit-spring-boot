@@ -1,7 +1,9 @@
 package freddit.service;
 
 import freddit.model.Link;
+import freddit.model.User;
 import freddit.repository.LinkRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,7 @@ public class LinkService {
 
     public Link save(Link link){
         //save will return the saved entity(link in this case)
+        link.setUser((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return linkRepository.save(link);
     }
 }

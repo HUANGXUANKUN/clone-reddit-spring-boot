@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordsMatch {
 
-    String message() default "Password & Password Confirmation do not match.";
+    String message() default "Password and Password Confirmation do not match.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
