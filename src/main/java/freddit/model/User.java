@@ -1,12 +1,14 @@
 package freddit.model;
 
 
+import freddit.model.validator.PasswordsMatch;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
@@ -18,32 +20,12 @@ import java.util.stream.Collectors;
 @Setter
 @RequiredArgsConstructor
 @ToString
+@PasswordsMatch
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    @NonNull
-    @NotNull(message = "You must enter a first name.")
-    private String firstName;
-
-    @NonNull
-    @NotNull(message = "You must enter a lastName name.")
-    private String lastName;
-
-    @Transient //Not store in the db
-    @Setter(AccessLevel.NONE) // Just get, no set
-    private String fullName;
-
-    @NonNull
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String alias;  //Display name
-
-    public String getFullName(){
-        return firstName + " " + lastName;
-    }
 
     @NonNull
     @Size(min = 8, max = 20)
@@ -57,6 +39,33 @@ public class User implements UserDetails {
     @NonNull
     @Column(nullable = false)
     private boolean enabled;
+
+    @NonNull
+    @NotEmpty(message = "Enter a first name.")
+    private String firstName;
+
+    @NonNull
+    @NotEmpty(message = "Enter a last name.")
+    private String lastName;
+
+    @Transient //Not store in the db
+    @Setter(AccessLevel.NONE) // Just get, no set
+    private String fullName;
+
+    @NonNull
+    @NotEmpty(message = "Enter an alias.")
+    @Column(nullable = false, unique = true)
+    private String alias;  //Display name
+
+    @Transient
+    @NotEmpty(message = "Enter password for confirmation.")
+    private String confirmPassword;
+
+    private String activationCode;
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
