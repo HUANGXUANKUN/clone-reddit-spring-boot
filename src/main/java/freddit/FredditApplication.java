@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 @SpringBootApplication
-@EnableJpaAuditing
 public class FredditApplication {
 
     private static final Logger log = LoggerFactory.getLogger(SpringApplication.class);
@@ -27,4 +26,6 @@ public class FredditApplication {
     PrettyTime prettyTime(){
         return new PrettyTime();
     }
+
+
 }
