@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,6 +23,27 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NonNull
+    @NotNull(message = "You must enter a first name.")
+    private String firstName;
+
+    @NonNull
+    @NotNull(message = "You must enter a lastName name.")
+    private String lastName;
+
+    @Transient //Not store in the db
+    @Setter(AccessLevel.NONE) // Just get, no set
+    private String fullName;
+
+    @NonNull
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String alias;  //Display name
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
 
     @NonNull
     @Size(min = 8, max = 20)
