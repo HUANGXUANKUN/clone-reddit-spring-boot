@@ -1,11 +1,14 @@
 package freddit.controller;
 
 
+import freddit.model.Comment;
 import freddit.model.Link;
+import freddit.repository.CommentRepository;
 import freddit.repository.LinkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +25,11 @@ public class LinkController {
     private static final Logger logger = LoggerFactory.getLogger(LinkController.class);
 
     private LinkRepository linkRepository;
+    private CommentRepository commentRepository;
 
-    public LinkController(LinkRepository linkRepository) {
+    public LinkController(LinkRepository linkRepository, CommentRepository commentRepository) {
         this.linkRepository = linkRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("/")
@@ -36,8 +41,12 @@ public class LinkController {
     @GetMapping("/link/{id}")
     public String read(@PathVariable Long id,Model model) {
         Optional<Link> link = linkRepository.findById(id);
-        if( link.isPresent() ) {
-            model.addAttribute("link",link.get());
+        if (link.isPresent()) {
+            Link currentLink = link.get();
+            Comment comment = new Comment();
+            comment.setLink(currentLink);
+            model.addAttribute("comment", comment);
+            model.addAttribute("link", currentLink);
             model.addAttribute("success", model.containsAttribute("success"));
             return "link/view";
         } else {
@@ -66,5 +75,17 @@ public class LinkController {
                     .addFlashAttribute("success",true);
             return "redirect:/link/{id}";
         }
+    }
+
+    @Secured({"ROLE_USER"})
+    @PostMapping("/link/comments")
+    public String addComment(@Valid Comment comment, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if( bindingResult.hasErrors() ) {
+            logger.info("Something went wrong.");
+        } else {
+            logger.info("New Comment Saved!");
+            commentRepository.save(comment);
+        }
+        return "redirect:/link/" + comment.getLink().getId();
     }
 }

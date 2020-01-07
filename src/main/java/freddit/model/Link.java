@@ -20,7 +20,6 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@ToString
 public class Link extends Auditable {
 
     @Id
@@ -30,6 +29,7 @@ public class Link extends Auditable {
     @NonNull
     @NotEmpty(message = "Please enter a title.")
     private String title;
+
     @NonNull
     @NotEmpty(message = "Please enter a url.")
     @URL(message = "Please enter a valid url.")
@@ -43,6 +43,10 @@ public class Link extends Auditable {
     private List<Vote> votes = new ArrayList<>();
 
     private int voteCount = 0;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 
     public String getDomainName() throws URISyntaxException {
         URI uri = new URI(this.url);
@@ -58,4 +62,6 @@ public class Link extends Auditable {
     private Date convertToDateViaInstant(LocalDateTime dateToConvert) {
         return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
     }
+
+
 }
