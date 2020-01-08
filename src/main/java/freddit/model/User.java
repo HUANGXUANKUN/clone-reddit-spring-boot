@@ -28,7 +28,6 @@ public class User implements UserDetails {
     private Long id;
 
     @NonNull
-    @Size(min = 8, max = 20)
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -54,7 +53,8 @@ public class User implements UserDetails {
 
     @NonNull
     @NotEmpty(message = "Enter an alias.")
-    @Column(nullable = false, unique = true)
+    @Size(min = 5, max = 20)
+    @Column(nullable = false)
     private String alias;  //Display name
 
     @Transient
