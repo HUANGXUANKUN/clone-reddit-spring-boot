@@ -49,13 +49,14 @@ public class UserService {
         user.setActivationCode(UUID.randomUUID().toString());
 
         // disable the user before it is activated
-        user.setEnabled(false);
+//        user.setEnabled(false);
+        user.setEnabled(true);
 
         // save user
         save(user);
 
         // send the activation email
-        sendActivationEmail(user);
+//        sendActivationEmail(user);
 
         // return the user
         return user;

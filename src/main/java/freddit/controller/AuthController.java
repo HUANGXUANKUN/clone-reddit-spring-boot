@@ -57,7 +57,7 @@ public class AuthController {
                     .addAttribute("id",newUser.getId())
                     .addFlashAttribute("success",true);
             logger.info("redirecting");
-            return "redirect:/register";
+            return "auth/activated";
         }
     }
 
