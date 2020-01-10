@@ -77,7 +77,7 @@ public class LinkController {
         }
     }
 
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER"}) //must login to comment
     @PostMapping("/link/comments")
     public String addComment(@Valid Comment comment, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if( bindingResult.hasErrors() ) {
