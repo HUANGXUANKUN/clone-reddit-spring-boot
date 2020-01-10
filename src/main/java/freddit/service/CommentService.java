@@ -25,8 +25,12 @@ public class CommentService {
     }
 
     public Comment save(Comment comment){
-        logger.debug("User is presented");
-        comment.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if(SecurityContextHolder.getContext().getAuthentication() == null){
+            logger.debug("User is not presented");
+        }else{
+            logger.debug("User is presented");
+            comment.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
         return commentRepository.save(comment);
     }
 }
