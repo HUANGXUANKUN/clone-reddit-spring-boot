@@ -1,7 +1,7 @@
 GET: $(document).ready(
 		function() {
 			// GET REQUEST
-			$("#upvote").click(function(event) {
+			$("#downvote").click(function(event) {
 				var id = this.getAttribute("data-id");
 				event.preventDefault();
 				ajaxGet(id);
@@ -11,20 +11,18 @@ GET: $(document).ready(
 			function ajaxGet(id) {
 				$.ajax({
 					type : "GET",
-					url : "link/" + id + "/upvote",
+					url : "link/" + id + "/downvote",
 					success : function(result) {
 						if (result.status == "success") {
+							const newCount = Number($('#votecount').html()) - 1;
 							$('#votecount').empty();
-							$("#votecount").html(result.data);
-							console.log("Success! VoteCount of current link increases to: ", result.data);
+							$("#votecount").html(newCount);
+							console.log("Success! VoteCount of current link decreases to: ", result.data);
 						} else {
-							$("#votecount").html("<strong>Error</strong>");
-
 							console.log("Fail: ", result.data);
 						}
 					},
 					error : function(e) {
-						$("#votecount").html("<strong>Error</strong>");
 						console.log("ERROR: ", e);
 					}
 				});

@@ -8,23 +8,20 @@ GET: $(document).ready(
 
 			// DO GET
 			function ajaxGet() {
-				// var id = $('#data-id').val();
 				$.ajax({
 					type : "GET",
 					url : window.location.href + "/upvote",
 					success : function(result) {
 						if (result.status == "success") {
+							const newCount = Number($('#votecount').html()) + 1;
 							$('#votecount').empty();
-							$("#votecount").html(result.data);
+							$("#votecount").html(newCount);
 							console.log("Success! VoteCount of current link increases to: ", result.data);
 						} else {
-							$("#votecount").html("<strong>Error</strong>");
-
 							console.log("Fail: ", result.data);
 						}
 					},
 					error : function(e) {
-						$("#votecount").html("<strong>Error</strong>");
 						console.log("ERROR: ", e);
 					}
 				});

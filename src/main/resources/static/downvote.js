@@ -1,30 +1,27 @@
 GET: $(document).ready(
 		function() {
 			// GET REQUEST
-			$("#upvote").click(function(event) {
+			$("#downvote").click(function(event) {
 				event.preventDefault();
 				ajaxGet();
 			});
 
 			// DO GET
 			function ajaxGet() {
-				// var id = $('#data-id').val();
 				$.ajax({
 					type : "GET",
-					url : window.location.href + "/upvote",
+					url : window.location.href + "/downvote",
 					success : function(result) {
 						if (result.status == "success") {
+							const newCount = Number($('#votecount').html()) - 1;
 							$('#votecount').empty();
-							$("#votecount").html(result.data);
-							console.log("Success! VoteCount of current link increases to: ", result.data);
+							$("#votecount").html(newCount);
+							console.log("Success! VoteCount of current link decreases to: ", newCount);
 						} else {
-							$("#votecount").html("<strong>Error</strong>");
-
 							console.log("Fail: ", result.data);
 						}
 					},
 					error : function(e) {
-						$("#votecount").html("<strong>Error</strong>");
 						console.log("ERROR: ", e);
 					}
 				});
