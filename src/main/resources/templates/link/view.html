@@ -3,9 +3,15 @@
 <head th:replace="~{layouts/main_layout :: head(title = 'MyReddit')}">
 </head>
 <body>
-
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+        src="/upvote.js" sec:authorize="isFullyAuthenticated()"></script>
+<script
+        src="/downvote.js" sec:authorize="isFullyAuthenticated()"></script>
 <nav th:replace="~{layouts/main_layout :: nav}"></nav>
 <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
 
 <div class="container">
 
@@ -13,12 +19,14 @@
         Your new link was created!
     </div>
 
+<!--    <button id="upvote" type="button" class="btn btn-primary" th:data-id = "${link.id}">increase vote</button>-->
+<!--    <div id="votecount" th:text="${link.getVoteCount()}" align="center"></div>-->
     <!-- link -->
     <div class="row link">
         <div class="col-1">
-            <div><a href="#" class="upvote"><i class="fas fa-arrow-up"></i></a></div>
-            <div><span class="votecount">3</span></div>
-            <div><a href="#" class="downvote"><i class="fas fa-arrow-down"></i></a></div>
+            <div ><a href="javascript:void(0);" id="upvote"><i class="fas fa-arrow-up"></i></a></div>
+            <div><span id = "votecount" class="votecount" th:text="${link.voteCount}"></span></div>
+            <div ><a href="javascript:void(0);" id="downvote"><i class="fas fa-arrow-down"></i></a></div>
         </div>
         <div class="col-11">
             <p class="title">
@@ -29,7 +37,8 @@
             </p>
             <p class="tagline ">submitted
                 <time th:title="${link.getCreationDate()}" th:datetime="${link.getCreationDate()}" class="live-timestamp" th:text="${link.getPrettyTime()}">1 hour(s)</time> by
-                <a th:href="@{'/u/' + ${link.getUser().getAlias()}}" class="author" th:text="${link.getUser().getAlias()}">Huang Xuan Kun</a>
+<!--                <a th:href="@{'/u/' + ${link.getUser().getAlias()}}" class="author" th:text="${link.getUser().getAlias()}">Huang Xuan Kun</a>-->
+                <a href="javascript:void(0);" class="author" th:text="${link.getUser().getAlias()}">Huang Xuan Kun</a>
                 <span class="userattrs"></span>
             </p>
             <p><a th:href="${link.url}" th:text="${link.url}" target="_blank"></a></p>
@@ -64,17 +73,33 @@
         <div class="row comment" th:each="comment : ${link.getComments()}">
             <div class="col-1">&nbsp;</div>
             <div class="col-11">
-                <span><a href="#" th:text="${comment.getCreatedBy()}"><i class="far fa-user"></i> Xuan Kun</a></span>
+                <span><a href="javascript:void(0);" th:text="${comment.getUser().getAlias()}"><i class="far fa-user"></i> Xuan Kun</a></span>
                 <span th:text="${comment.getPrettyTime()}"><i class="far fa-clock"></i> 4 hours ago</span>
                 <p class="body" th:text="${comment.getBody()}">Comment body</p>
-                <a href="#" class="permalink"><i class="fas fa-link"></i> permalink</a>
-                <a href="#" class="like"><i class="far fa-thumbs-up"></i> Like</a>
+                <a href="javascript:void(0);" class="permalink"><i class="fas fa-link"></i> permalink</a>
+                <a href="javascript:void(0);" class="like"><i class="far fa-thumbs-up"></i> Like</a>
             </div>
         </div>
-
     </div>
 
-</div>
 
-</body>
+<!--    <script sec:authorize="isFullyAuthenticated()">-->
+<!--        const allvotes = document.querySelectorAll(".upvote, .downvote");-->
+<!--        for(let i=0; i<allvotes.length; i++) {-->
+<!--            let className = allvotes[i].className;-->
+<!--            allvotes[i].addEventListener('click', function (event) {-->
+<!--                const direction = className === 'upvote' ? 1 : -1;-->
+<!--                const linkID = this.getAttribute("data-id");-->
+<!--                const voteSum = document.getElementById('votecount-' + linkID);-->
+<!--                const voteSumValue = voteSum.innerHTML;-->
+<!--                const baseUrl = window.location.protocol +"//" + window.location.hostname + ":" + window.location.port;-->
+<!--                fetch(`${baseUrl}/vote/link/${linkID}/direction/${direction}/votecount/${voteSumValue}`)-->
+<!--                    .then(response => response.json())-->
+<!--                    .then(data => voteSum.innerHTML = data)-->
+<!--                    .catch(err => console.error(err));-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+</div>
+    </body>
 </html>
