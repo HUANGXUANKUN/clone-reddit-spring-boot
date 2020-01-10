@@ -11,9 +11,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -42,10 +40,13 @@ public class Link extends Auditable {
     @OneToMany(mappedBy = "link")
     private List<Vote> votes = new ArrayList<>();
 
-    private int voteCount = 0;
 
     @ManyToOne
     private User user;
+
+    private int voteCount = 0;
+
+//    private Set<String> voterEmails = new HashSet<>();
 
     public void addComment(Comment comment) {
         comments.add(comment);

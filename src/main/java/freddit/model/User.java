@@ -54,7 +54,7 @@ public class User implements UserDetails {
     @NonNull
     @NotEmpty(message = "Enter an alias.")
     @Size(min = 5, max = 20)
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String alias;  //Display name
 
     @Transient

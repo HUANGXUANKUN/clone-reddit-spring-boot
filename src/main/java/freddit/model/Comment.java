@@ -4,10 +4,7 @@ import freddit.service.BeanUtil;
 import lombok.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -30,6 +27,9 @@ public class Comment extends Auditable{
     @ManyToOne
     @NonNull
     private Link link;
+
+    @OneToOne
+    private User user;
 
     public String getPrettyTime() {
         PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
