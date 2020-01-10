@@ -57,7 +57,8 @@
                 all 21 comments
             </div>
         </div>
-        <div class="row addcomment" sec:authorize="hasRole('ROLE_USER')">
+<!--        <div class="row addcomment" sec:authorize="hasRole('ROLE_USER')">-->
+        <div class="row addcomment">
             <div class="col-1">&nbsp;</div>
             <div class="col-11">
                 <form id="frmAddLink" method="POST" th:action="@{/link/comments}" th:object="${comment}">
@@ -73,7 +74,7 @@
         <div class="row comment" th:each="comment : ${link.getComments()}">
             <div class="col-1">&nbsp;</div>
             <div class="col-11">
-                <span><a href="javascript:void(0);" th:text="${comment.getUser().getAlias()}"><i class="far fa-user"></i> Xuan Kun</a></span>
+                <span><a href="javascript:void(0);" th:text="${comment.getCreatedBy()}"><i class="far fa-user"></i> Xuan Kun</a></span>
                 <span th:text="${comment.getPrettyTime()}"><i class="far fa-clock"></i> 4 hours ago</span>
                 <p class="body" th:text="${comment.getBody()}">Comment body</p>
                 <a href="javascript:void(0);" class="permalink"><i class="fas fa-link"></i> permalink</a>
