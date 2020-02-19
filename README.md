@@ -1,8 +1,6 @@
 # [MyReddit](http://myreddit-env.y2nifjhptb.us-east-2.elasticbeanstalk.com/) - www.reddit123.com 
 
-MyReddit is a reddit clone built using **Spring Boot2** and **Spring 5**
-
-[Visit www.reddit123.com](http://myreddit-env.y2nifjhptb.us-east-2.elasticbeanstalk.com/)
+MyReddit is a reddit clone built using **Spring Boot2** and **Spring 5**. [Visit www.reddit123.com](http://myreddit-env.y2nifjhptb.us-east-2.elasticbeanstalk.com/)
 
 ### Completed Features:
 
